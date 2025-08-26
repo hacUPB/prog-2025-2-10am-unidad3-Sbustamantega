@@ -57,3 +57,20 @@ Print (f"paciente {nombre}, tiene un IMC de {imc:0.2f} y su condición es {mensa
 
 
 
+
+
+# numero divisible por 3
+#se le pide al usuario que ingrese un numero entero y que muestre si el numero es divisible por 3.
+numero = int(input("ingrese un numero entero:"))
+ if (numero % 3) == 0:
+  print (f"{numero} es divisible entre 3) 
+
+
+
+ 
+
+
+
+
+
+
