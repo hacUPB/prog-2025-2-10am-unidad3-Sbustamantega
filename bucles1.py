@@ -103,7 +103,7 @@ print(f"La suma de los pares entre 1 y {n}: {suma}")
  '''''
 
 
-
+'''''''''
 #que se imprima un mensaje un numero determinado de veces
 mensaje = "Universidad Pontificia Bolivariana"
 numero = int(input("Ingrese un numero entero positivo:"))
@@ -111,3 +111,59 @@ while numero < 1:
      numero = int(input("Error. Ingrese un numero entero positivo:"))
 for _ in range (1, numero + 1, 1):
     print(f"{mensaje}")
+
+'''''
+
+#Ejercicio de cambio de temperatura
+
+'''
+variables de entrada
+Nombre                 tipo
+opcion                 str
+temperatura            float
+
+variables de salida
+Nombre                 tipo
+conversion             float
+
+variables de control
+Nombre                 tipo
+opcion                 str
+'''
+
+'''''''''
+opcion = "R"
+while opcion != 'Q':
+    opcion = input("F. Fahreinheit a celcius\nC. celsius a Fahrenheit\nQ.salir\n")
+    opcion = opcion.upper()
+    if opcion != 'Q':
+      temperatura = float(input("Ingrese la temperatura: "))
+      match opcion:
+        case "F":
+            conversion = (temperatura - 32) * 5/9
+            print(f"{temperatura}°F = {conversion}°C")
+        case "C":
+            conversion = (temperatura * 9/5) + 32
+            print(f"{temperatura}°C = {conversion}°F")
+        case _:
+            print("Opcion no valida, por favor intente de nuevo.")  
+else : 
+ print("saliendo del programa...")
+'''
+
+#ejercicio de numeros primos y sus factores
+'''''''''
+numero = int(input("Ingrese un numero entero positivo: "))
+cont = 0
+for i in range(1, numero + 1):
+    if numero % i == 0:
+        cont += 1
+
+if cont == 2:
+    print(f"{numero} es un numero primo")
+else:
+    print(f"los divisores de {numero} son:")
+    for i in range(1, numero + 1):
+        if numero % i == 0:
+            print(i)
+'''''''
