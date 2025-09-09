@@ -76,7 +76,6 @@ FIN
 
 
 
-
 2.  Ajuste de Altitud para Mantener Margen Seguro
 
 Descripción: se fija una altitud para el vuelo, cada 2 minutos se lee la altitud simulando un altimetro, el rango seguro es mas o menos 500 pies de diferencia de la altitud seleccionada,
@@ -114,7 +113,7 @@ INICIO
         desviacion = altitud_actual - altitud_objetivo
 
         SI |desviacion| <= rango_seguro ENTONCES
-              contador_estabilidad ← contador_estabilidad + 1
+              contador_estabilidad = contador_estabilidad + 1
               IMPRIMIR "Dentro del rango seguro. Contador:", contador_estabilidad
         SINO
               contador_estabilidad ← 0
@@ -128,16 +127,16 @@ INICIO
   FIN MIENTRAS
 
   IMPRIMIR "De vuelta en el nivel de crucero."
-  intervalo_lectura ← 5 minutos
+  intervalo_lectura = 5 minutos
 
   MIENTRAS VERDADERO HACER
         ESPERAR intervalo_lectura
         LEER altitud_actual
-        desviacion ← altitud_actual - altitud_objetivo
+        desviacion = altitud_actual - altitud_objetivo
 
         SI |desviacion| > rango_seguro ENTONCES
-              contador_estabilidad ← 0
-              intervalo_lectura ← 30 segundos
+              contador_estabilidad = 0
+              intervalo_lectura = 30 segundos
               IMPRIMIR "Se detectó desviación. Retomando monitoreo cada 30 segundos."
               (Volver al primer bucle de control)
         FIN SI
@@ -185,19 +184,19 @@ INICIO
   LEER aerop_alt
   LEER combustible
 
-  reserva_combustible ← valor_estándar (ej. 2000 kg)
-  consumo_por_minuto ← valor_estándar (ej. 80 kg/min)
+  reserva_combustible = valor_estándar (ej. 2000 kg)
+  consumo_por_minuto = valor_estándar (ej. 80 kg/min)
 
-  consumo_vuelo_alt ← aerop_alt * consumo_promedio_por_nm
+  consumo_vuelo_alt = aerop_alt * consumo_promedio_por_nm
 
-  combustible_disponible_espera ← combustible - (consumo_vuelo_alt + reserva_combustible)
+  combustible_disponible_espera = combustible - (consumo_vuelo_alt + reserva_combustible)
 
   SI combustible_disponible_espera <= 0 ENTONCES
-        decision ← "Ir inmediatamente al aeropuerto alternativo"
+        decision = "Ir inmediatamente al aeropuerto alternativo"
         IMPRIMIR decision
   SINO
-        tiempo_espera ← combustible_disponible_espera / consumo_por_minuto
-        decision ← "Tiempo máximo de espera: " + tiempo_espera + " minutos"
+        tiempo_espera = combustible_disponible_espera / consumo_por_minuto
+        decision = "Tiempo máximo de espera: " + tiempo_espera + " minutos"
         IMPRIMIR decision
   FIN SI
 
