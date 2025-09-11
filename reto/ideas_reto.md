@@ -20,16 +20,6 @@ Se calcula el ángulo de descenso y se evalúa si es seguro (entre 3° y 6°).
 Si no, pide ajustar altitud.
 
 
-|variables|Tipo|Descripcion|
-|---------|----|-----------|
-|alt_actual|Entrada|
-|alt_final|entrada|
-|taza_descenso|proceso |
-|rango_inclinacion|proceso| el angulo que el avion puede tener para el descenso
-
-
-
-
 
 | Variable          | Tipo      | Descripción                                                                |
 |-------------------|-----------|----------------------------------------------------------------------------|
@@ -42,38 +32,50 @@ Si no, pide ajustar altitud.
 | es_seguro         | Proceso   | Variable lógica que indica si el ángulo está dentro del rango seguro.      |
 | ajuste_altitud    | Salida    | Recomendación de nueva altitud si el ángulo no es seguro.                  |
 
+FUNCION calcular_angulo(razon_descenso, velocidad_horizontal)
+    angulo = arctan(razon_descenso / velocidad_horizontal) * (180 / π)
+    RETORNAR angulo
+FIN FUNCION
 
 
-```
 INICIO
 
-  LEER alt_actual
-  LEER alt_final
-  LEER distancia_destino
+    repetir = VERDADERO
 
-  delta_altitud = alt_actual - alt_final
+    MIENTRAS repetir = VERDADERO HACER
 
-  angulo_descenso = arctan(delta_altitud / distancia_destino)
+        LEER alt_actual
+        LEER alt_final
+        LEER distancia_destino
+        LEER velocidad_horizontal   // GS en nudos o m/s
+        LEER razon_descenso         // ft/min
 
-  SI angulo_descenso >= 3 Y angulo_descenso <= 6 ENTONCES
-        es_seguro = VERDADERO
-        IMPRIMIR "El ángulo de descenso es:", angulo_descenso, "grados"
-        IMPRIMIR "El descenso es seguro."
-  SINO
-        es_seguro = FALSO
-        IMPRIMIR "El ángulo de descenso es:", angulo_descenso, "grados"
-        IMPRIMIR "El descenso NO es seguro."
-        ajuste_altitud = tan(4.5°) * distancia_destino
-        alt_recomendada = alt_actual - ajuste_altitud
-        IMPRIMIR "Ajuste recomendado de altitud final:", alt_recomendada
-  FIN SI
+        delta_altitud = alt_actual - alt_final
+
+        // Se calcula el ángulo con la función
+        angulo_descenso = calcular_angulo(razon_descenso, velocidad_horizontal)
+
+        IMPRIMIR "Ángulo calculado:", angulo_descenso, "grados"
+
+        SI angulo_descenso >= 3 Y angulo_descenso <= 6 ENTONCES
+            IMPRIMIR "El descenso es SEGURO."
+            repetir = FALSO
+        SINO
+            IMPRIMIR "El descenso NO es seguro."
+            ajuste_razon = tan(4.5° * π / 180) * velocidad_horizontal
+            IMPRIMIR "Razón de descenso recomendada:", ajuste_razon, "ft/min"
+
+            LEER "¿Desea intentar de nuevo con otra razón de descenso? (S/N)" -> opcion
+            SI opcion = "N" ENTONCES
+                repetir = FALSO
+            FIN SI
+        FIN SI
+
+    FIN MIENTRAS
 
 FIN
-```
 
-
-
-
+(pedi a la ia que me diera un ejemplo de como podia ser el codigo y ahi pude analizarlo, corregirlo y modificarlo a mi necesidad)
 
 
 2.  Ajuste de Altitud para Mantener Margen Seguro
