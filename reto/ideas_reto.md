@@ -32,50 +32,47 @@ Si no, pide ajustar altitud.
 | es_seguro         | Proceso   | Variable lógica que indica si el ángulo está dentro del rango seguro.      |
 | ajuste_altitud    | Salida    | Recomendación de nueva altitud si el ángulo no es seguro.                  |
 
-FUNCION calcular_angulo(razon_descenso, velocidad_horizontal)
-    angulo = arctan(razon_descenso / velocidad_horizontal) * (180 / π)
-    RETORNAR angulo
-FIN FUNCION
-
 
 INICIO
 
     repetir = VERDADERO
 
-    MIENTRAS repetir = VERDADERO HACER
+    MIENTRAS repetir = VERDADERO:
+        escribir "Desea realizar calculo para ascenso (A) o descenso (D)"
+        leer etapa_vuelo
 
-        LEER alt_actual
-        LEER alt_final
-        LEER distancia_destino
-        LEER velocidad_horizontal   // GS en nudos o m/s
-        LEER razon_descenso         // ft/min
+        leer alt_actual
+        leer alt_final
+        leer distancia_destino
+        leer velocidad_aeronave      
+          
+            Si etapa_vuelo = "D"
+                  delta_altitud = alt_actual - alt_final
+                  distancia_destino = distancia_destino * 6076
 
-        delta_altitud = alt_actual - alt_final
+                  angulo_descenso = arctan(delta_altitud/distancia_destino)
 
-        // Se calcula el ángulo con la función
-        angulo_descenso = calcular_angulo(razon_descenso, velocidad_horizontal)
+                  escribir "Ángulo de descenso:", angulo_descenso, "grados"
 
-        IMPRIMIR "Ángulo calculado:", angulo_descenso, "grados"
+                  SI angulo_descenso >= 3 Y angulo_descenso <= 6 ENTONCES
+                        escribir "El descenso es SEGURO."
+                        repetir = FALSO
+                  SINO
+                        escribir "El descenso NO es seguro."
+                        ajuste_razon = tan(4.5° * π / 180) * velocidad_horizontal                       \\ aqui se uso la ia en el metodo para el angulo de descenso
+                        escribir "Razón de descenso recomendada:", ajuste_razon, "ft/min"
 
-        SI angulo_descenso >= 3 Y angulo_descenso <= 6 ENTONCES
-            IMPRIMIR "El descenso es SEGURO."
-            repetir = FALSO
-        SINO
-            IMPRIMIR "El descenso NO es seguro."
-            ajuste_razon = tan(4.5° * π / 180) * velocidad_horizontal
-            IMPRIMIR "Razón de descenso recomendada:", ajuste_razon, "ft/min"
-
-            LEER "¿Desea intentar de nuevo con otra razón de descenso? (S/N)" -> opcion
-            SI opcion = "N" ENTONCES
-                repetir = FALSO
-            FIN SI
-        FIN SI
+                        LEER "¿Desea intentar de nuevo con otra razón de descenso? (S/N)" -> opcion
+                        SI opcion = "N" ENTONCES
+                        repetir = FALSO
+                        FIN SI
+                  FIN SI
 
     FIN MIENTRAS
 
 FIN
 
-(pedi a la ia que me diera un ejemplo de como podia ser el codigo y ahi pude analizarlo, corregirlo y modificarlo a mi necesidad)
+(pedi a la ia que me diera un posible metodo para realizar el pseudocodigo y ahi pude analizarlo, corregirlo y modificarlo a necesidad)
 
 
 2.  Ajuste de Altitud para Mantener Margen Seguro
@@ -149,7 +146,7 @@ FIN
 
 
 
-
+(pedi a la ia que me diera un posible metodo para realizar el pseudocodigo y ahi pude analizarlo, corregirlo y modificarlo a necesidad)
 
 
 3. un a320 se encuentra en un patron de espera ya que hay una emergencia en el aeropuerto, esta realizando patrones de espera
@@ -159,19 +156,12 @@ el codigo pide al piloto primero la distancia con su aeropuero alternativo, lueg
 calcula cuanto combustible gasta en ir a ese aeropuerto dejando la reserva de combustible obligatoria, luego calcula cuanto tiempo
 se puede hacer el patron de espera antes de que el piloto tenga que ir a su alternativo.
 
-|variables|tipo|descripcion|
-|---------|----|-----------|
-|aerop_alt|entrada|la distancia con el aeropuerto alternativo
-|combustible|entrada|el combustible restante en el tanque|
-|
-
-
 
 
 | Variable                  | Tipo      | Descripción                                                                 |
 |---------------------------|-----------|-----------------------------------------------------------------------------|
-| aerop_alt                 | Entrada   | Distancia con el aeropuerto alternativo (NM o km).                          |
-| combustible               | Entrada   | Combustible restante en el tanque (kg o L).                                |
+| aerop_alt                 | Entrada   | Distancia con el aeropuerto alternativo (NM).                          |
+| combustible               | Entrada   | Combustible restante en el tanque (lb).                                |
 | consumo_vuelo_alt         | Proceso   | Combustible necesario para llegar al alternativo.                           |
 | reserva_combustible       | Proceso   | Combustible obligatorio de reserva (ej. 30 min).                           |
 | combustible_disponible_espera | Proceso | Combustible que se puede usar solo en espera.                               |
@@ -186,8 +176,8 @@ INICIO
   LEER aerop_alt
   LEER combustible
 
-  reserva_combustible = valor_estándar (ej. 2000 kg)
-  consumo_por_minuto = valor_estándar (ej. 80 kg/min)
+  reserva_combustible =  (ej. 2000 lb)
+  consumo_por_minuto = (ej. 120 lb/min)
 
   consumo_vuelo_alt = aerop_alt * consumo_promedio_por_nm
 
@@ -208,7 +198,7 @@ FIN
 
 
 
-
+(pedi a la ia que me diera un posible metodo para realizar el pseudocodigo y ahi pude analizarlo, corregirlo y modificarlo a necesidad)
 
 
 
