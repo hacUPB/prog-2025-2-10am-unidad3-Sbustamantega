@@ -44,7 +44,9 @@ match opción:
 
     case  "b":
         print("problema de ajuste de altitud")
+        
         altitud = float(input("ingrese la altitud en metros: "))
+
        
 
 
