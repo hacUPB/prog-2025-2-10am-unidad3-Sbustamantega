@@ -144,7 +144,7 @@ MIENTRAS repetir = "r":
             SI distancia_max_nm >= distancia_objetivo_nm :
                   escribir "Vuelo POSIBLE."
             SINO
-                  escribir "Vuelo NO POSIBLE."
+                  escribir "Vuelo no posible, busque un destino alternativo."
             FIN SI
       FIN SI
 
@@ -184,6 +184,8 @@ se puede hacer el patron de espera antes de que el piloto tenga que ir a su alte
 | combustible_disponible_espera | Proceso  | Combustible que se puede usar solo en espera.                               |
 | tiempo_espera                 | Proceso  | Tiempo máximo que se puede permanecer en espera.                            |
 
+```
+Inicio
 repetir = "r"
 
 MIENTRAS repetir = "r"
@@ -217,41 +219,38 @@ FIN MIENTRAS
 FIN
 ```
 
-
-
-```
-INICIO
-
-repetir = "r"
-
-Mientras repetir = "r"
-
-  LEER aerop_alt
-  LEER combustible
-
-  reserva_combustible =  (ej. 2000 lb)
-  consumo_por_minuto = (ej. 120 lb/min)
-
-  consumo_vuelo_alt = aerop_alt * consumo_promedio_por_nm
-
-  combustible_disponible_espera = combustible - (consumo_vuelo_alt + reserva_combustible)
-
-  SI combustible_disponible_espera <= 0 ENTONCES
-        decision = "Ir inmediatamente al aeropuerto alternativo"
-        IMPRIMIR decision
-  SINO
-        tiempo_espera = combustible_disponible_espera / consumo_por_minuto
-        decision = "Tiempo máximo de espera: " + tiempo_espera + " minutos"
-        IMPRIMIR decision
-  FIN SI
-
-FIN
-```
-
-
-
-
 (pedi a la ia que me diera un posible metodo para realizar el pseudocodigo y ahi pude analizarlo, corregirlo y modificarlo a necesidad)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
