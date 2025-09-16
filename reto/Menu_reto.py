@@ -9,6 +9,9 @@ opción = input("ingrese que programa desea usar: ")
 match opción:
     case "a":
         print ("problema taza de descenso y ascenso")
+        repetir = True
+
+        
         
 
 
