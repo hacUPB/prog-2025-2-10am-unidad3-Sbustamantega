@@ -9,8 +9,10 @@ opción = input("ingrese que programa desea usar: ")
 match opción:
     case "a":
         print ("problema taza de descenso y ascenso")
-        repetir = True
+        repetir = "r"
 
+        while repetir = "r"
+            alt_final = 
         
         
 
@@ -18,12 +20,47 @@ match opción:
          
 
 
+'''''''''
+INICIO
 
+mientras repetir = "r"
 
+      leer alt_final
+      leer distancia_destino
+      leer velocidad_aeronave      
+      distancia_destino = distancia_destino * 6076
+      delta_altitud = alt_final - alt_actual
+      angulo = arctan( |delta_altitud| / distancia_destino ) * (180 / π)
 
+      
 
+      Si etapa_vuelo = "D"
+            escribir "Ángulo de descenso:", angulo, "grados"
+            SI angulo >= 3 Y angulo_descenso <= 6 :
+                  escribir "El descenso es SEGURO."
+                  ajuste_razon = tan(angulo * π / 180) * velocidad_aeronave * 101.27    \\ aqui se uso la ia en el metodo para el angulo de descenso
+                  ESCRIBIR "Razón de descenso:", ajuste_razon, "ft/min"
+            SINO
+                  escribir "El descenso NO es seguro." 
+            FIN SI
+      si no 
+            escribir "Ángulo de Ascenso:", angulo, "grados"
+            SI angulo >= 10 Y angulo_descenso <= 25 ENTONCES
+                  escribir "El ASCENSO ES SEGURO."
+                  ajuste_razon = tan(angulo * π / 180) * velocidad_aeronave * 101.27
+                  ESCRIBIR "Razón de ascenso:", ajuste_razon, "ft/min"
 
+            SINO
+                  escribir "El ascenso NO es seguro."
 
+            Fin si
+      Fin si
+      escribir "si desea repetir el proceso (r), si no (n)"
+      leer repetir
+FIN MIENTRAS
+
+FIN
+'''''''''
 
 
 
@@ -76,22 +113,7 @@ match opción:
 
     case "c": 
         print("problema de patron de espera")
-        aerop_alt = float(input("ingrese la distancia al aeropuerto alternativo en millas náuticas: "))
-        combustible = float(input("ingrese el combustible disponible en kg: "))
-        consumo_promedio_por_nm = 5  # Consumo promedio por milla náutica en kg
-        reserva_combustible = 2000  # Reserva de combustible en kg
-        consumo_por_minuto = 80  # Consumo por minuto en kg
-        consumo_vuelo_alt = aerop_alt * consumo_promedio_por_nm
-        combustible_disponible_espera = combustible - (consumo_vuelo_alt + reserva_combustible)
-        if combustible_disponible_espera <= 0:
-            decision = "Ir inmediatamente al aeropuerto alternativo"
-            print(decision)
-        else:
-            tiempo_espera = combustible_disponible_espera / consumo_por_minuto
-            decision = "Tiempo máximo de espera: " + str(tiempo_espera) + " minutos"
-            print(decision)
-
-
+       
 
 
 
