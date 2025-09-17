@@ -22,7 +22,7 @@
 
 
 
-'''''''''''
+'''''''''''''''
 
 print("Ingresa tu nombre y apellido")
 nombre = input ()

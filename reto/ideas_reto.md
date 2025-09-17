@@ -5,7 +5,7 @@ Descripción:
 
 un avion se encuentra en decenso desde una altitud indicada, 
 se pide que el pilto ingrese su altitud y la altitud deseada para el descenso
-Se calcula si la razón de descenso es apropiada según distancia y altitud.
+Se calcula si la razón de descenso es apropiada según distancia y altitud. (al final, decidi mejor que para el descenso se restrinja por medio de la taza de descenso y para el ascenso se restrinja por el angulo)
 
 Se pide:
 
@@ -20,22 +20,21 @@ Se calcula el ángulo de descenso y se evalúa si es seguro (entre 3° y 6°).
 Si no, pide ajustar altitud.
 
 
-
-|# Tabla de Variables del Algoritmo de Ascenso/Descenso
-
-| Variable           | Tipo       | Descripción                                                                 |
-|--------------------|------------|-----------------------------------------------------------------------------|
-| alt_actual         | Entrada    | Altitud actual del avión (ft).                                              |
-| alt_final          | Entrada    | Altitud deseada o final (ft).                                               |
-| distancia_destino  | Entrada    | Distancia horizontal hasta el destino (NM, convertida a ft en el cálculo).  |
-| velocidad_aeronave | Entrada    | Velocidad horizontal de la aeronave (kt).                                   |
-| etapa_vuelo        | Entrada    | Etapa del vuelo: `"A"` = Ascenso, `"D"` = Descenso.                         |
-| delta_altitud      | Proceso    | Diferencia de altitud: `alt_final - alt_actual`.                            |
-| angulo             | Proceso    | Ángulo calculado: `arctan(|delta_altitud| / distancia_destino)`.            |
-| ajuste_razon       | Proceso    | Razón vertical correspondiente al ángulo: `tan(angulo) * velocidad * 101    |
-| es_seguro          | Proceso    | Variable lógica que indica si el ángulo está dentro del rango seguro.       |
-| rango_descenso     | Constante  | Rango permitido para descenso: 3° a 6°.                                     |
-| rango_ascenso      | Constante  | Rango permitido para ascenso: 10° a 25°.                                    |
+| Variable              | Tipo             | Descripción                                                                                   |
+|-----------------------|------------------|-----------------------------------------------------------------------------------------------|
+| `alt_actual`          | Entrada           | Altitud actual del avión (en pies, `ft`).                                                     |
+| `alt_final`           | Entrada           | Altitud a la que se desea llegar (en pies, `ft`).                                             |
+| `velocidad_aeronave` | Entrada / Proceso | Velocidad de la aeronave ingresada en knots, convertida a pies por minuto (`ft/min`).         |
+| `distancia_destino`   | Entrada           | Distancia hasta el destino en millas náuticas (`NM`), convertida a pies (`ft`).              |
+| `etapa_vuelo`         | Entrada           | Etapa del vuelo ingresada por el usuario: `"A"` (ascenso) o `"D"` (descenso).                |
+| `delta_altitud`       | Proceso           | Diferencia de altitud: `alt_final - alt_actual` (en pies).                                   |
+| `angulo`              | Proceso           | Ángulo de ascenso o descenso en grados: `atan(abs(delta_altitud) / distancia_destino)`.      |
+| `ajuste_razon`        | Proceso           | Razón vertical en pies por minuto (`ft/min`): `tan(angulo) * velocidad_aeronave`.            |
+| `repetir`             | Entrada           | Control de repetición del programa: `"R"` para continuar, otro valor para terminar.          |
+| `6076`                | Constante         | Conversión: 1 milla náutica (`NM`) = **6076 pies (`ft`)**.                                   |
+| `60`                  | Constante         | Conversión: 1 minuto = **60 segundos** (para pasar ft/s a ft/min).                           |
+| `rango_descenso_max`  | Constante         | Límite superior seguro de razón de descenso: **2,500 ft/min**.                               |
+| `rango_ascenso_max`   | Constante         | Límite superior seguro de ángulo de ascenso: **25°**.                                        |
 
 
 

@@ -1,125 +1,75 @@
 
 #empezar haciendo un texto de bienvenida y codigo del menú
+repetir_menu = "C"
+while repetir_menu == "C":
+      print("bienvenido al menu de problemas")
+      print("a. Problema angulo de ataque\nb. problema de eficiencia en crucero\nc. problema de patron de espera\ns. salir")
 
-print("bienvenido al menu de problemas")
-print("a. Problema angulo de ataque\n b. problema de ajuste de altitud\n c. problema de patron de espera\n s. salir")
+      opcion = input("ingrese que programa desea usar: ")
 
-opción = input("ingrese que programa desea usar: ")
+      match opcion:
+            case "a":
+                  import math
+                  print ("problema angulo de ascenso y descenso")
+                  repetir = "R"
 
-match opción:
-    case "a":
-        print ("problema taza de descenso y ascenso")
-        repetir = "r"
+                  while repetir == "R":
+                        etapa_vuelo = input("¿que etapa desea calcular? Ascenso (A), Descenso (D)").upper()
+                        alt_final = float(input("ingrese la altitud a la que quiere llegar (ft)"))
+                        alt_actual = float(input("ingrese su altitud actual (ft)"))
+                        velocidad_aeronave = float(input("ingrese la velocidad de la aeronave (knots)"))* (6076 / 60)
+                        distancia_destino = float(input("ingrese la distancia de destino (NM)"))* 6076
+                        delta_altitud = alt_final - alt_actual
+                        angulo = math.atan(abs(delta_altitud)/distancia_destino) * (180/math.pi)
+                        
+                  
+                        if etapa_vuelo == "D":
+                              print("Ángulo de descenso:",round(angulo, 2),"grados")
+                              ajuste_razon = -(math.tan(math.radians(angulo)) * velocidad_aeronave)
+                              if ajuste_razon > -2500:
+                                    print("El descenso es seguro")
+                                    print("la velocidad vertical seria: -", round(ajuste_razon, 2),"ft/min")
+                              else :
+                                    print("el descenso no es seguro, el descent rate sería:", round(ajuste_razon, 2),"ft/min")
+                        
+                        elif etapa_vuelo == "A":
+                              print("Angulo de ascenso:", round(angulo, 2),"grados" )
+                              if 0 <= angulo <= 25:
+                                    print("el ascenso es seguro")
+                                    ajuste_razon = math.tan(math.radians(angulo)) * velocidad_aeronave
+                                    print("la velocidad vertical seria:", round(ajuste_razon, 2),"ft/min")
+                              else:
+                                    print("el ascenso no es seguro")
+                        
+                        repetir = input("si desea repetir el calculo ingrese (r) ").upper()
 
-        while repetir = "r"
-            alt_final = 
-        
-        
+            
 
 
-         
 
 
-'''''''''
-INICIO
+            case "b":
+                  print("problema de eficiencia en crucero")
 
-mientras repetir = "r"
 
-      leer alt_final
-      leer distancia_destino
-      leer velocidad_aeronave      
-      distancia_destino = distancia_destino * 6076
-      delta_altitud = alt_final - alt_actual
-      angulo = arctan( |delta_altitud| / distancia_destino ) * (180 / π)
 
-      
 
-      Si etapa_vuelo = "D"
-            escribir "Ángulo de descenso:", angulo, "grados"
-            SI angulo >= 3 Y angulo_descenso <= 6 :
-                  escribir "El descenso es SEGURO."
-                  ajuste_razon = tan(angulo * π / 180) * velocidad_aeronave * 101.27    \\ aqui se uso la ia en el metodo para el angulo de descenso
-                  ESCRIBIR "Razón de descenso:", ajuste_razon, "ft/min"
-            SINO
-                  escribir "El descenso NO es seguro." 
-            FIN SI
-      si no 
-            escribir "Ángulo de Ascenso:", angulo, "grados"
-            SI angulo >= 10 Y angulo_descenso <= 25 ENTONCES
-                  escribir "El ASCENSO ES SEGURO."
-                  ajuste_razon = tan(angulo * π / 180) * velocidad_aeronave * 101.27
-                  ESCRIBIR "Razón de ascenso:", ajuste_razon, "ft/min"
 
-            SINO
-                  escribir "El ascenso NO es seguro."
 
-            Fin si
-      Fin si
-      escribir "si desea repetir el proceso (r), si no (n)"
-      leer repetir
-FIN MIENTRAS
 
-FIN
-'''''''''
+                  
+            
+            case "c": 
+                  print("problema de patron de espera")
+                  
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    case  "b":
-        print("problema de ajuste de altitud")
-        
-        altitud = float(input("ingrese la altitud en metros: "))
-
-       
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    case "c": 
-        print("problema de patron de espera")
-       
-
-
-
-
-
-    case "s":
-        print("saliendo del programa")  
-    case _:
-        print("opcion no valida, por favor intente de nuevo.")
+            case "s":
+                  print("saliendo del programa")  
+            case _:
+                  print("opcion no valida, por favor intente de nuevo.")
+                  
+      repetir_menu = input("si desea repetir el menu presione (c)").upper()
