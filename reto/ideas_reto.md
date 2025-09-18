@@ -4,8 +4,8 @@
 Descripción:
 
 un avion se encuentra en decenso desde una altitud indicada, 
-se pide que el pilto ingrese su altitud y la altitud deseada para el descenso o ascenso
-Se calcula si la velocidad vertical es apropiada según distancia y altitud. si la velocidad vertical es muy alta o muy baja el programa indica que no es seguro.
+se pide que el pilto ingrese su altitud y la altitud deseada y la velocidad de la aeronave para el descenso o ascenso, a partir de esto el programa calcula el angulo de descenso o ascenso necesario para llegar a esa altitud en la distancia indicada, tambien se pide la velocidad de la aeronave para validar si el ascenso o descenso es seguro,
+Se calcula si es apropiada según distancia y altitud. si la velocidad vertical es muy alta o muy baja el programa indica que no es seguro. y muestra que la taza de ascenso pasa los limites de seguridad. entonces el piloto puede probar otros parametros menores para que la velocidad vertical este dentro del rango seguro.
 
 
 | Variable              | Tipo             | Descripción|
@@ -81,9 +81,7 @@ FIN
 
 
 2. eficiencia de una aeronave en crucero
-
-Se desea determinar si un Airbus A320 puede volar hasta un destino con el combustible cargado, considerando viento y velocidad de crucero. Para este problema se asume que el consumo en crucero del A320 es constante e igual a 5400 lb/h. (cambios en el problema al final)
-
+Se desea determinar si un Airbus A320 tiene la capacidad de volar hasta un destino con el combustible que lleva actualmente cargado. Para ello, primero se debe conocer cuánta cantidad de combustible tiene a bordo la aeronave. A partir de este dato se considera que existe un consumo base establecido a nivel del mar, y que dicho consumo varía dependiendo de la altitud: entre más alto se encuentra el avión, menor es el consumo de combustible. Además, es necesario tomar en cuenta la velocidad de la aeronave durante el trayecto, así como el efecto del viento, ya que este puede ser favorable o desfavorable y modificar directamente el rango de vuelo del avión. Con todos estos factores —combustible disponible, consumo ajustado por altitud, velocidad y viento— se puede determinar si el A320 logra cubrir la distancia requerida hasta el destino o si es necesario buscar un aeropuerto alternativo.
 
 
 | Variable | Tipo | Descripción |
@@ -161,11 +159,9 @@ Fin
 
 
 3. patron de espera
-un a320 se encuentra en un patron de espera ya que hay una emergencia en el aeropuerto, esta realizando patrones de espera
-y necesita saber cuanto tiempo queda de espera antes de tener que ir al aeropuerto alternativo
+Un Airbus A320 se encuentra en un patrón de espera debido a que en su aeropuerto de destino principal ocurre una emergencia. Durante este tiempo la aeronave permanece realizando maniobras de espera en el aire, pero el piloto necesita conocer con exactitud cuánto tiempo puede continuar en dicho patrón antes de verse obligado a dirigirse hacia su aeropuerto alternativo.
 
-el codigo pide al piloto primero la distancia con su aeropuero alternativo, luego le pide el combustible actual, el sistema
-calcula cuanto combustible gasta en ir a ese aeropuerto dejando la reserva de combustible obligatoria, luego calcula cuanto tiempo se puede hacer el patron de espera antes de que el piloto tenga que ir a su alternativo.
+El código comienza solicitando al piloto la distancia que existe hasta el aeropuerto alternativo. Después de esto, pide también la cantidad de combustible que tiene actualmente a bordo la aeronave. Con estos datos, el sistema procede a calcular el consumo de combustible necesario para volar directamente al alternativo, asegurando que se conserve siempre la reserva mínima obligatoria. Una vez conocido ese valor, el programa determina cuánto combustible queda disponible exclusivamente para permanecer en el patrón de espera. Finalmente, con el combustible remanente, se calcula el tiempo máximo en minutos y horas durante el cual el A320 puede continuar en espera antes de que el piloto deba tomar la decisión de dirigirse a su aeropuerto alternativo para garantizar la seguridad del vuelo.
 
 
 
