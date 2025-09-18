@@ -4,20 +4,8 @@
 Descripción:
 
 un avion se encuentra en decenso desde una altitud indicada, 
-se pide que el pilto ingrese su altitud y la altitud deseada para el descenso
-Se calcula si la razón de descenso es apropiada según distancia y altitud. (al final, decidi mejor que para el descenso se restrinja por medio de la taza de descenso y para el ascenso se restrinja por el angulo)
-
-Se pide:
-
-Altitud actual
-
-Altitud del destino
-
-Distancia hasta destino
-
-Se calcula el ángulo de descenso y se evalúa si es seguro (entre 3° y 6°).
-
-Si no, pide ajustar altitud.
+se pide que el pilto ingrese su altitud y la altitud deseada para el descenso o ascenso
+Se calcula si la velocidad vertical es apropiada según distancia y altitud. si la velocidad vertical es muy alta o muy baja el programa indica que no es seguro.
 
 
 | Variable              | Tipo             | Descripción|
@@ -42,8 +30,11 @@ INICIO
 
 mientras repetir = "r"
 
+      escribir "Ingrese altitud actual (ft):"
       leer alt_final
+      escribir "Ingrese la distancia con el destino (NM):"
       leer distancia_destino
+      escribir "ingrese la velocidad de la aeronave (kts):"
       leer velocidad_aeronave      
       distancia_destino = distancia_destino * 6076
       delta_altitud = alt_final - alt_actual
@@ -65,7 +56,7 @@ mientras repetir = "r"
             SI angulo >= 10 Y angulo_descenso <= 25 ENTONCES
                   escribir "El ASCENSO ES SEGURO."
                   ajuste_razon = tan(angulo * π / 180) * velocidad_aeronave * 101.27
-                  ESCRIBIR "Razón de ascenso:", ajuste_razon, "ft/min"
+                  escribir "Razón de ascenso:", ajuste_razon, "ft/min"
 
             SINO
                   escribir "El ascenso NO es seguro."
@@ -171,11 +162,10 @@ Fin
 
 3. patron de espera
 un a320 se encuentra en un patron de espera ya que hay una emergencia en el aeropuerto, esta realizando patrones de espera
-y necesita saber cuanto tiempo queda restante de espera antes de tener que ir al aeropuerto alternativo
+y necesita saber cuanto tiempo queda de espera antes de tener que ir al aeropuerto alternativo
 
 el codigo pide al piloto primero la distancia con su aeropuero alternativo, luego le pide el combustible actual, el sistema
-calcula cuanto combustible gasta en ir a ese aeropuerto dejando la reserva de combustible obligatoria, luego calcula cuanto tiempo
-se puede hacer el patron de espera antes de que el piloto tenga que ir a su alternativo.
+calcula cuanto combustible gasta en ir a ese aeropuerto dejando la reserva de combustible obligatoria, luego calcula cuanto tiempo se puede hacer el patron de espera antes de que el piloto tenga que ir a su alternativo.
 
 
 
@@ -233,13 +223,32 @@ while repetir == "R":
       FIN SI
 
       imprimir "¿Desea repetir el cálculo? (r)"
-      LEER repetir
+      leer repetir
 
 FIN MIENTRAS
 Fin
 ```
 
 (pedi a la ia que me diera un posible metodo para realizar el pseudocodigo y ahi pude analizarlo, corregirlo y modificarlo a necesidad)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -31,8 +31,8 @@ while repetir_menu == "C":
                               print("Ángulo de descenso:",round(angulo, 2),"grados")
                               ajuste_razon = -(math.tan(math.radians(angulo)) * velocidad_aeronave)
                               if ajuste_razon > -2500:
-                                    print("El descenso es seguro")
-                                    print("la velocidad vertical seria: -", round(ajuste_razon, 2),"ft/min")
+                                    print("El descenso es seguro","la velocidad vertical seria: -", round(ajuste_razon, 2),"ft/min")
+                                    
                               else :
                                     print("el descenso no es seguro, el descent rate sería:", round(ajuste_razon, 2),"ft/min")
                         
@@ -41,8 +41,8 @@ while repetir_menu == "C":
                               print("Angulo de ascenso:", round(angulo, 2),"grados" )
                               ajuste_razon = math.tan(math.radians(angulo)) * velocidad_aeronave
                               if ajuste_razon <= 4500:
-                                    print("el ascenso es seguro")
-                                    print("la velocidad vertical seria:", round(ajuste_razon, 2),"ft/min")
+                                    print("el ascenso es seguro", "la velocidad vertical seria:", round(ajuste_razon, 2),"ft/min")
+                                    
                               else:
                                     print("el ascenso no es seguro", "el climb rate seria:", round(ajuste_razon, 2),"ft/min")
                         
