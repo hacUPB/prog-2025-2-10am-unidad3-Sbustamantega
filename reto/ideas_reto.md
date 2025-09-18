@@ -20,21 +20,20 @@ Se calcula el ángulo de descenso y se evalúa si es seguro (entre 3° y 6°).
 Si no, pide ajustar altitud.
 
 
-| Variable              | Tipo             | Descripción                                                                                   |
-|-----------------------|------------------|-----------------------------------------------------------------------------------------------|
-| `alt_actual`          | Entrada           | Altitud actual del avión (en pies, `ft`).                                                     |
-| `alt_final`           | Entrada           | Altitud a la que se desea llegar (en pies, `ft`).                                             |
-| `velocidad_aeronave` | Entrada / Proceso | Velocidad de la aeronave ingresada en knots, convertida a pies por minuto (`ft/min`).         |
-| `distancia_destino`   | Entrada           | Distancia hasta el destino en millas náuticas (`NM`), convertida a pies (`ft`).              |
-| `etapa_vuelo`         | Entrada           | Etapa del vuelo ingresada por el usuario: `"A"` (ascenso) o `"D"` (descenso).                |
-| `delta_altitud`       | Proceso           | Diferencia de altitud: `alt_final - alt_actual` (en pies).                                   |
-| `angulo`              | Proceso           | Ángulo de ascenso o descenso en grados: `atan(abs(delta_altitud) / distancia_destino)`.      |
-| `ajuste_razon`        | Proceso           | Razón vertical en pies por minuto (`ft/min`): `tan(angulo) * velocidad_aeronave`.            |
-| `repetir`             | Entrada           | Control de repetición del programa: `"R"` para continuar, otro valor para terminar.          |
-| `6076`                | Constante         | Conversión: 1 milla náutica (`NM`) = **6076 pies (`ft`)**.                                   |
-| `60`                  | Constante         | Conversión: 1 minuto = **60 segundos** (para pasar ft/s a ft/min).                           |
-| `rango_descenso_max`  | Constante         | Límite superior seguro de razón de descenso: **2,500 ft/min**.                               |
-| `rango_ascenso_max`   | Constante         | Límite superior seguro de ángulo de ascenso: **25°**.                                        |
+| Variable              | Tipo             | Descripción|
+|-----------------------|------------------|------------|
+|alt_actual|Entrada|Altitud actual del avión (en pies, ft).|
+|alt_final| Entrada| Altitud a la que se desea llegar (en pies, ft).|
+|velocidad_aeronave | Entrada / Proceso | Velocidad de la aeronave ingresada en knots, convertida a pies por minuto (ft/min).|
+|distancia_destino|Entrada|Distancia hasta el destino en millas náuticas (NM), convertida a pies (ft).|
+|etapa_vuelo|Entrada| Etapa del vuelo ingresada por el usuario|
+| delta_altitud| Proceso| Diferencia de altitud (ft)|
+|angulo| Proceso| el angulo de ascenso o descenso que resulta de la distancia y diferencia de altitud |
+| ajuste_razon |Proceso| velocidad vertical de la aeronave |
+| repetir |Entrada|Control de repetición del programa: "R" para continuar, otro valor para terminar.|
+| 6076 | Constante| Conversión: 1 milla náutica (NM) = **6076 pies ft|
+| -2500, 4000 ft/min|Constante|Límite seguro de razón de ascenso y descenso: ft/min|
+| 25° | Constante| Límite superior seguro de ángulo de ascenso.|
 
 
 
@@ -82,7 +81,7 @@ FIN
 
 (pedi a la ia que me diera un posible metodo para realizar el pseudocodigo y ahi pude analizarlo, corregirlo y modificarlo a necesidad)
 
-
+(hubo que cambiar un poco el enfoque, ya con lo explicado mas arriba, habia un problema que el descenso se estaba calculando era por el angulo, pero daba una velocidad vertical muy grande, la cual no es segura, asi que cambie el parametro que regula si un ascenso o descenso es seguro siendo la velocidad vertical no el angulo)
 
 
 
@@ -92,34 +91,35 @@ FIN
 
 2. eficiencia de una aeronave en crucero
 
-Se desea determinar si un Airbus A320 puede volar hasta un destino con el combustible cargado, considerando viento y velocidad de crucero. Para este problema se asume que el consumo en crucero del A320 es constante e igual a 5400 lb/h.
+Se desea determinar si un Airbus A320 puede volar hasta un destino con el combustible cargado, considerando viento y velocidad de crucero. Para este problema se asume que el consumo en crucero del A320 es constante e igual a 5400 lb/h. (cambios en el problema al final)
 
 
-| Variable              | Tipo    | Descripción                                                              |
-|-----------------------|---------|--------------------------------------------------------------------------|
-| combustible_lb        | Entrada | Combustible cargado en libras (lb).                                      |
-| consumo_lb_h          | Entrada | Consumo promedio en libras por hora (lb/h).                              |
-| velocidad_kts         | Entrada | Velocidad de crucero en nudos (kt).                                      |
-| viento_kts            | Entrada | Velocidad del viento en nudos (positivo a favor, negativo en contra).    |
-| distancia_objetivo_nm | Entrada | Distancia al destino en millas náuticas (NM).                            |
-| tiempo_horas          | Salida  | Autonomía máxima en horas de vuelo.                                      |
-| distancia_max_nm      | Salida  | Distancia máxima que puede recorrer la aeronave en millas náuticas (NM). |
-|consumo_lb_h           |Constante| la autonomia del airbus a320 en condiciones estandar                     |
 
+| Variable | Tipo | Descripción |
+|----------|------|-------------|
+| combustible_lb | Entrada | Combustible cargado en libras (lb). |
+| velocidad_kts | Entrada | Velocidad de crucero en nudos (kt). |
+| altitud_pies | Entrada | Altitud de crucero en pies (ft). |
+| viento_kts | Entrada | Velocidad del viento en nudos (positivo a favor, negativo en contra). |
+| distancia_objetivo_nm | Entrada | Distancia al destino en millas náuticas (NM). |
+| tiempo_horas | Salida | Autonomía máxima en horas de vuelo. |
+| distancia_max_nm | Salida | Distancia máxima que puede recorrer la aeronave en millas náuticas (NM). |
+| consumo_base_lb_h | Constante | Consumo de combustible de referencia a nivel del mar (6,000 lb/h). |
 
 
 
 ```
-INICIO
-
-repetir = "r"
-
-MIENTRAS repetir = "r":
-      escribir "Ingrese combustible en lb:"
+inicio
+repetir = "R"
+Mientras repetir = "R"
+      escribir "Ingrese el combustible en la aeronave (lb):"
       leer combustible_lb
 
-      escribir "Ingrese velocidad en kts:"
+      escribir "Ingrese la velocidad en las aeronaves (kts):"
       leer velocidad_kts
+
+      escribir "Ingrese la altitud de crucero (pies):"
+      leer altitud_pies
 
       escribir "Ingrese viento en kts (positivo a favor, negativo en contra):"
       leer viento_kts
@@ -127,35 +127,46 @@ MIENTRAS repetir = "r":
       escribir "Ingrese distancia al destino en NM:"
       leer distancia_objetivo_nm
 
-      consumo_lb_h = 5400
+      // Asumimos un consumo de referencia a nivel del mar (cero pies)
+      consumo_base_lb_h = 6000
 
-      tiempo_horas = combustible_lb / consumo_lb_h
+      // Se asume una reducción del 0.5% en el consumo por cada 1000 pies de altitud
+      factor_reduccion = (altitud_pies / 1000) * 0.005
+      
+      consumo_ajustado_lb_h = consumo_base_lb_h * (1 - factor_reduccion)
+      
+      SI consumo_ajustado_lb_h < 1000 : // si se ingresan valores fuera de la realidad el programa aun asi dara un consumo minimo
+            consumo_ajustado_lb_h = 1000
+      FIN SI
+
+      tiempo_horas = combustible_lb / consumo_ajustado_lb_h
       velocidad_efectiva_kts = velocidad_kts + viento_kts
 
       SI velocidad_efectiva_kts <= 0 :
-            escribir "error, valores no validos"
+            escribir "Error, valores no validos. Viento en contra excesivo."
       SINO
             distancia_max_nm = velocidad_efectiva_kts * tiempo_horas
 
-            escribir "Autonomía en horas:", tiempo_horas
-            escribir "Distancia máxima en NM:", distancia_max_nm
+      escribir "Autonomía en horas:", tiempo_horas
+      escribir "Distancia máxima en NM:", distancia_max_nm
+      escribir "Consumo de combustible ajustado:", consumo_ajustado_lb_h
 
-            SI distancia_max_nm >= distancia_objetivo_nm :
-                  escribir "Vuelo POSIBLE."
-            SINO
-                  escribir "Vuelo no posible, busque un destino alternativo."
-            FIN SI
+      SI distancia_max_nm >= distancia_objetivo_nm :
+            escribir "Vuelo POSIBLE." 
+      SINO
+            escribir "Vuelo no posible, busque un destino alternativo."
+      FIN SI
       FIN SI
 
       escribir "¿Desea realizar otro calculo? (r):"
       leer repetir
 
-FIN MIENTRAS
-
-FIN
+FIN MIENTRAS 
+Fin
 ```
 
 (pedi a la ia que me diera un posible metodo para realizar el pseudocodigo y ahi pude analizarlo, corregirlo y modificarlo a necesidad)
+(el problema lo cambie para agregarle dificultad, ahora se tendra en cuenta que segun la altitud la eficiencia va cambiando)
 
 
 3. patron de espera
@@ -168,54 +179,64 @@ se puede hacer el patron de espera antes de que el piloto tenga que ir a su alte
 
 
 
-| Variable                      | Tipo     | Descripción                                                                 |
-|-------------------------------|----------|-----------------------------------------------------------------------------|
-| aerop_alt                     | Entrada  | Distancia con el aeropuerto alternativo (NM).                               |
-| combustible                   | Entrada  | Combustible restante en el tanque (lb).                                     |
-| velocidad_promedio            | Entrada  | Velocidad promedio del A320 en crucero hacia el alternativo (kt).           |
-| consumo_por_hora              | Entrada  | Consumo promedio del A320 en crucero (lb/h).                                |
-| consumo_por_minuto            | Entrada  | Consumo promedio en patrón de espera (lb/min).                              |
-| factor_viento                 | Entrada  | Factor que ajusta consumo según viento (ej. 1.1 si hay viento en contra).   |
-| factor_espera                 | Entrada  | Factor que ajusta consumo en patrón de espera (ej. 1.05 por maniobras).     |
-| reserva_combustible           | Proceso  | Combustible obligatorio de reserva (ej. 2000 lb).                           |
-| tiempo_vuelo_alt              | Proceso  | Tiempo estimado de vuelo al alternativo: `aerop_alt / velocidad_promedio`.  |
-| consumo_vuelo_alt             | Proceso  | Combustible necesario para llegar al alternativo con viento.                |
-| combustible_disponible_espera | Proceso  | Combustible que se puede usar solo en espera.                               |
-| tiempo_espera                 | Proceso  | Tiempo máximo que se puede permanecer en espera.                            |
+| Variable |Tipo|Descripción|
+|----------|----------|-----|
+| aerop_alt| Entrada  | Distancia con el aeropuerto alternativo (NM).|
+| combustible| Entrada  | Combustible restante en el tanque (lb).|
+| velocidad_promedio | Entrada  | Velocidad promedio del A320 en crucero hacia el alternativo (kt).|
+| consumo_por_hora| Entrada  | Consumo promedio del A320 en crucero (lb/h).|
+| consumo_por_minuto| Entrada  | Consumo promedio en patrón de espera (lb/min).|
+| factor_viento| Entrada | Factor que ajusta consumo según viento (ej. 1.1 si hay viento en contra).|
+| factor_espera| Entrada | Factor que ajusta consumo en patrón de espera (ej. 1.05 por maniobras).|
+| reserva_combustible| Proceso | Combustible obligatorio de reserva|
+| tiempo_vuelo_alt| Proceso | Tiempo estimado de vuelo al alternativo|
+| consumo_vuelo_alt| Proceso | Combustible necesario para llegar al alternativo con viento.|
+| combustible_disponible_espera | Proceso  | Combustible que se puede usar solo en espera.|
+| tiempo_espera| Proceso | Tiempo máximo que se puede permanecer en espera.|
+
+
 
 ```
 Inicio
-repetir = "r"
+repetir = "R"
+while repetir == "R":
+      escribir "Ingrese la distancia al aeropuerto alternativo (NM):"
+      leer aerop_alt
+      escribir "Ingrese el combustible actual (lb):"
+      leer combustible
+      escribir "Ingrese la velocidad promedio de la aeronave (kts):"
+      leer velocidad_prom
+      escribir "Ingrese la altitud de patron de espera(ft):"
+      leer altitud_pies
+        
+      reserva_combustible = 15000
+      consumo_por_minuto = 55      
+      consumo_base_por_hora = 6000 
 
-MIENTRAS repetir = "r"
+      factor_reduccion = (altitud_pies / 1000) * 0.005
+      consumo_ajustado_por_hora = consumo_base_por_hora * (1 - factor_reduccion)
 
-      LEER aerop_alt
-      LEER combustible
-      LEER velocidad_promedio
-      LEER consumo_por_hora
-      LEER consumo_por_minuto
-      LEER factor_viento
-      LEER factor_espera
+      SI consumo_ajustado_por_hora < 1000 : 
+            consumo_ajustado_por_hora = 1000
+      FIN SI
 
-      reserva_combustible = 2000
+      tiempo_vuelo_alt_h = aerop_alt / velocidad_promedio_kts
+      consumo_vuelo_alt = tiempo_vuelo_alt_h * consumo_ajustado_h
 
-      tiempo_vuelo_alt = aerop_alt / velocidad_promedio
-      consumo_vuelo_alt = tiempo_vuelo_alt * consumo_por_hora * factor_viento
       combustible_disponible_espera = combustible - (consumo_vuelo_alt + reserva_combustible)
 
       SI combustible_disponible_espera <= 0 ENTONCES
-            ESCRIBIR = "Ir inmediatamente al aeropuerto alternativo"
+              imprimir "Ir inmediatamente al aeropuerto alternativo"
       SINO
-            tiempo_espera = (combustible_disponible_espera / (consumo_por_minuto * factor_espera))
-            ESCRIBIR = "Tiempo máximo de espera: " + tiempo_espera + " minutos"
+              tiempo_espera = combustible_disponible_espera / consumo_por_minuto
+              imprimir "Tiempo máximo de espera: ", tiempo_espera, " minutos"
       FIN SI
 
-      escribir "¿Desea repetir el cálculo? (r)"
-      leer repetir
+      imprimir "¿Desea repetir el cálculo? (r)"
+      LEER repetir
 
 FIN MIENTRAS
-
-FIN
+Fin
 ```
 
 (pedi a la ia que me diera un posible metodo para realizar el pseudocodigo y ahi pude analizarlo, corregirlo y modificarlo a necesidad)
