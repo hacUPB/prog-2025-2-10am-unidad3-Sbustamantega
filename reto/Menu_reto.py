@@ -1,5 +1,4 @@
-#el profucto final con funciones esta en codigo_reto.py
-#empezar haciendo un texto de bienvenida y codigo del menú
+
 def problema_descenso():
       import math
       print("--------------------------------")
