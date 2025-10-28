@@ -38,6 +38,10 @@ def problema_descenso():
             repetir = input("si desea repetir el calculo ingrese (r) ").upper()
 
 
+
+
+# el problema original
+''''''''''''''''
 def problema_eficiencia_crucero():
       print("--------------------------------")
       print("problema de eficiencia en crucero")
@@ -75,6 +79,100 @@ def problema_eficiencia_crucero():
                   print("vuelo no posible, busque un destino alternativo")
             
             repetir = input("si desea realizar otro calculo ingrese (r)").upper()
+'''''''''''''''
+            
+
+
+
+# la version con lista y diccionario
+
+def problema_eficiencia_crucero():
+    print("--------------------------------")
+    print("problema de eficiencia en crucero")
+
+    # Diccionario con aeronaves y su consumo base (lb/h)
+    aeronaves = {
+        "A320": {"consumo_base": 6000, "velocidad_crucero": 450},
+        "B737": {"consumo_base": 5500, "velocidad_crucero": 440},
+        "B787": {"consumo_base": 10000, "velocidad_crucero": 510},
+        "B747": {"consumo_base": 12000, "velocidad_crucero": 490},
+        "PC-12": {"consumo_base": 900, "velocidad_crucero": 260},
+        "CESSNA CARAVAN": {"consumo_base": 700, "velocidad_crucero": 180},
+        "CESSNA CITATION": {"consumo_base": 4000, "velocidad_crucero": 430},
+        "KING-AIR": {"consumo_base": 1500, "velocidad_crucero": 270},   
+        "CESSNA172": {"consumo_base": 800, "velocidad_crucero": 120}
+    }
+
+    # Lista para guardar historial de vuelos
+    historial = []
+
+    repetir = "R"
+    while repetir == "R":
+        print("\n--------------------------------")
+        print("Aeronaves disponibles:", ", ".join(aeronaves.keys()))
+        avion = input("Seleccione su aeronave: ").upper()
+
+        if avion not in aeronaves:
+            print("Aeronave no encontrada. Intente de nuevo.")
+            continue
+
+        datos = aeronaves[avion]
+        combustible_lb = float(input("Ingrese el combustible disponible (lb): "))
+        altitud_ft = float(input("Ingrese la altitud de crucero (ft): "))
+        viento_kts = float(input("Ingrese viento (positivo a favor, negativo en contra): "))
+        distancia_deseada = float(input("Ingrese distancia al destino (NM): "))
+
+        # Consumo ajustado según altitud
+        factor_reduccion = (altitud_ft / 1000) * 0.005
+        consumo_ajustado = datos["consumo_base"] * (1 - factor_reduccion)
+        if consumo_ajustado < 1000:
+            consumo_ajustado = 1000
+
+        tiempo_horas = combustible_lb / consumo_ajustado
+        velocidad_ef = datos["velocidad_crucero"] + viento_kts
+
+        if velocidad_ef <= 0:
+            print("Error: viento en contra excesivo.")
+            continue
+
+        distancia_max = velocidad_ef * tiempo_horas
+
+        print("\n--- RESULTADOS ---")
+        print(f"Aeronave: {avion}")
+        print(f"Autonomía: {round(tiempo_horas, 2)} h")
+        print(f"Distancia máxima: {round(distancia_max, 2)} NM")
+        print(f"Consumo ajustado: {round(consumo_ajustado, 2)} lb/h")
+
+        if distancia_max >= distancia_deseada:
+            print("✅ El vuelo es posible.")
+        else:
+            print("❌ Vuelo no posible, busque un destino alternativo.")
+
+        # Guardar resultados en lista
+        historial.append({
+            "aeronave": avion,
+            "altitud": altitud_ft,
+            "distancia_max": round(distancia_max, 2),
+            "posible": distancia_max >= distancia_deseada
+        })
+
+        repetir = input("¿Desea realizar otro cálculo? (R para repetir): ").upper()
+
+    # Mostrar historial al final
+    print("\nHistorial de vuelos:")
+    for vuelo in historial:
+        print(vuelo)
+
+
+
+
+
+
+
+
+
+
+
 
 
 def problema_patron_espera():     

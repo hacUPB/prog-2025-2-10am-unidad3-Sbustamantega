@@ -20,4 +20,4 @@ while repetir_menu == "C":
             case _:
                   print("opcion no valida, por favor intente de nuevo.")
                   
-      repetir_menu = input("si desea repetir el menu presione (c)").upper()
+repetir_menu = input("\n si desea repetir el menu presione (c)").upper()
